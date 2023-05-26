@@ -9,8 +9,19 @@ dependencies = [
   'delb[https-loader]'
 ]
 
+[project.optional-dependencies]
+dev = [
+	'pytest-cov',
+	'coverage'
+]
+
 [tool.setuptools]
 packages = ['oai_status']
 
 [project.scripts]
 oai-status = 'oai_status:main'
+
+[tool.pytest.ini_options]
+addopts = '''
+  --doctest-modules --cov-report=term --cov=oai_status/
+'''

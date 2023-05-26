@@ -1,0 +1,25 @@
+---
+
+name: tests
+
+on: push
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.5.2
+
+      - uses: actions/setup-python@v4.6.0
+        with:
+          python-version: '3.11'
+
+      - name: install dev dependencies
+        run: pip install --user .[dev]
+
+      - name: run tests
+        run: python -mpytest
+
+...
+      
