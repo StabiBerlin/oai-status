@@ -11,12 +11,13 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-	'pytest-cov',
-	'coverage'
+  'pytest-cov'
 ]
 
 [tool.setuptools]
-packages = ['oai_status']
+packages = [
+  'oai_status'
+]
 
 [project.scripts]
 oai-status = 'oai_status:main'
