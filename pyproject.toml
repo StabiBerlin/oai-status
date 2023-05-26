@@ -1,0 +1,16 @@
+[build-system]
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'sbb-oai-status'
+version = '0.0.0'
+dependencies = [
+  'delb'
+]
+
+[tool.setuptools]
+packages = ['oai_status']
+
+[project.scripts]
+oai-status = 'oai_status:main'
