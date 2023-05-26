@@ -4,16 +4,22 @@ from delb import Document
 def list_sets(base_url: str = 'https://oai.sbb.berlin/') -> bool:
     """
     queries an OAI-PMH service with the ``ListSets`` verb and expects
-    a ``resumptionToken`` in the response. Throws otherwise.
+    a well-formed response with some actual sets in it.
+    Boolean return value indicates success.
 
     >>> list_sets('https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi')
     True
 
+    >>> list_sets('http://foo.bar')
+    False
+
     """
-    r = Document(f'{base_url}?verb=ListSets')
-    assert r.xpath('//resumptionToken')
+    try:
+        assert Document(f'{base_url}?verb=ListSets').xpath('//ListSets/set/setSpec')
+    except:
+        return False
     return True
 
-    
+
 def main():
-    list_sets()
+    assert list_sets(), "ListSets failure"
