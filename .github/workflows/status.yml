@@ -1,0 +1,28 @@
+---
+
+name: status
+
+on:
+  schedule:
+  - cron: '0 */6 * * *'
+
+
+jobs:
+  status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.5.0
+
+      - uses: actions/setup-python@v4.6.0
+        with:
+          python-version: '3.11'
+      
+      - name: install
+        run: pip install --user .
+
+      - name: check status of OAI-PMH service
+        run: oai-status
+
+...
+       
