@@ -4,7 +4,8 @@ name: status
 
 on:
   schedule:
-  - cron: '0 */6 * * *'
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 
 jobs:
@@ -24,5 +25,7 @@ jobs:
       - name: check status of OAI-PMH service
         run: oai-status
 
+      - name: retrieve all records in OAI set
+        run: oai-list-records illustrierte.liedflugschriften
+
 ...
-       

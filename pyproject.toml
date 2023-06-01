@@ -21,6 +21,7 @@ packages = [
 
 [project.scripts]
 oai-status = 'oai_status:main'
+oai-list-records = 'oai_status.list_records:main'
 
 [tool.pytest.ini_options]
 addopts = '''
