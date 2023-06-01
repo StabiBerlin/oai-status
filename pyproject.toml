@@ -24,5 +24,5 @@ oai-status = 'oai_status:main'
 
 [tool.pytest.ini_options]
 addopts = '''
-  --doctest-modules --cov-report=term --cov=oai_status/
+  --doctest-modules --cov-report=term-missing --cov=oai_status/
 '''
