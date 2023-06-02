@@ -21,5 +21,8 @@ jobs:
       - name: run tests
         run: python -mpytest
 
+      - name: lint
+        run: python -mflake8
+
 ...
-      
+ 

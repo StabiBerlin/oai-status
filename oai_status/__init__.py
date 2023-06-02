@@ -16,7 +16,7 @@ def list_sets(base_url: str = 'https://oai.sbb.berlin/') -> bool:
     """
     try:
         assert Document(f'{base_url}?verb=ListSets').xpath('//ListSets/set/setSpec')
-    except:
+    except BaseException:
         return False
     return True
 
