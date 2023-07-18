@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.2
 
-      - uses: actions/setup-python@v4.6.0
+      - uses: actions/setup-python@v4.7.0
         with:
-          python-version: '3.11'
+          python-version-file: pyproject.toml
 
       - name: install dev dependencies
         run: pip install --user .[dev]

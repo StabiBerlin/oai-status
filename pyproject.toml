@@ -8,6 +8,8 @@ version = '0.0.0'
 dependencies = [
   'delb[https-loader]'
 ]
+requires-python = '>=3.9.0'
+
 
 [project.optional-dependencies]
 dev = [
