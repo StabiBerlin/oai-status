@@ -80,6 +80,7 @@ def list_records(
     yield from yield_records(doc)
     if not counter.left:
         return
+
     while resumption_token := get_resumption_token(doc):
         doc = request_list_records(setSpec, metadata_prefix, resumption_token)
         yield from yield_records(doc)

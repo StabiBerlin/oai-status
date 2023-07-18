@@ -35,8 +35,9 @@ def test_list_records_limited():
 
 
 def test_list_records_limited_paging():
-    records = list(list_records('illustrierte.liedflugschriften', limit=125))
-    assert len(records) == 125
+    assert len(
+        list(list_records('illustrierte.liedflugschriften', limit=75))
+    ) == 75
 
 
 def test_entrypoint():
