@@ -1,4 +1,5 @@
 import sys
+from types import SimpleNamespace
 from typing import Iterable
 
 from delb import Document, TagNode
@@ -26,8 +27,7 @@ def get_resumption_token(doc: Document) -> str:
     'metadataPrefix%3Doai_dc%26set%3Dillustrierte.liedflugschriften%26cursor%3D50%26batch_size%3D51'
 
     '''
-    token_node = doc.xpath('//resumptionToken').first
-    if token_node:
+    if token_node := doc.xpath('//resumptionToken').first:
         return token_node.full_text
     return None
 
@@ -67,7 +67,7 @@ def list_records(
     retrieve records of a certain set from OAI endpoint, i.e. make requests with the `ListRecords`
     verb.
     '''
-    counter = type('counter', (), dict(left=limit))()
+    counter = SimpleNamespace(left=limit)
 
     def yield_records(doc: Document) -> Iterable[TagNode]:
         for record in get_records(doc):
