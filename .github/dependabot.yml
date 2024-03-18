@@ -7,8 +7,12 @@ updates:
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: monthly
+      interval: weekly
+    commit-message:
+      prefix: ':octocat'
     reviewers:
       - jkatzwinkel
+      - Marcel-Tronco
+      - plasmoit
 
 ...
