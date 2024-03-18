@@ -1,1 +1,1 @@
-[![status](https://github.com/JKatzwinkel/oai-status/actions/workflows/status.yml/badge.svg)](https://github.com/JKatzwinkel/oai-status/actions/workflows/status.yml)
+[![status](https://github.com/StaatsbibliothekBerlin/oai-status/actions/workflows/status.yml/badge.svg)](https://github.com/StaatsbibliothekBerlin/oai-status/actions/workflows/status.yml)
