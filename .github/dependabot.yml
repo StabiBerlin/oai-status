@@ -10,9 +10,5 @@ updates:
       interval: weekly
     commit-message:
       prefix: ':octocat'
-    reviewers:
-      - jkatzwinkel
-      - Marcel-Tronco
-      - plasmoit
 
 ...
