@@ -21,5 +21,5 @@ def list_sets(base_url: str = 'https://oai.sbb.berlin/') -> bool:
     return True
 
 
-def main():
+def main() -> None:
     assert list_sets(), "ListSets failure"

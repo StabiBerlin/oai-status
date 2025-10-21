@@ -8,7 +8,7 @@ from oai_status.list_records import (
 )
 
 
-def test_request_list_records_resumption():
+def test_request_list_records_resumption() -> None:
     doc = request_list_records(
         'illustrierte.liedflugschriften',
         resumption_token=(
@@ -26,23 +26,23 @@ def test_request_list_records_resumption():
     }
 
 
-def test_list_records_paging():
+def test_list_records_paging() -> None:
     assert len(list(list_records('reformation'))) == 73
 
 
-def test_list_records_limited():
+def test_list_records_limited() -> None:
     assert len(list(list_records('reformation', limit=1))) == 1
 
 
-def test_list_records_limited_paging():
+def test_list_records_limited_paging() -> None:
     assert len(
         list(list_records('illustrierte.liedflugschriften', limit=75))
     ) == 75
 
 
-def test_entrypoint():
-    csv_data = main(
-        ['', 'reformation'], 10
+def test_entrypoint() -> None:
+    assert (
+        csv_data := main(['', 'reformation'], 10)
     )
     assert len(csv_data) == 10
     assert all(

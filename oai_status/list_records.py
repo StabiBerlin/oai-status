@@ -2,11 +2,12 @@ import sys
 from types import SimpleNamespace
 from typing import Iterable
 
-from delb import Document, TagNode
+from delb import Document
+from _delb.nodes import TagNode, NodeBase
 
 
 def request_list_records(
-    setSpec: str, metadata_prefix: str = 'oai_dc', resumption_token: str = None
+    setSpec: str, metadata_prefix: str = 'oai_dc', resumption_token: str = ''
 ) -> Document:
     src = 'https://oai.sbb.berlin/?verb=ListRecords'
     if resumption_token:
@@ -16,7 +17,7 @@ def request_list_records(
     return Document(src)
 
 
-def get_records(doc: Document) -> Iterable[TagNode]:
+def get_records(doc: Document) -> Iterable[NodeBase]:
     records = doc.xpath('//ListRecords/record')
     yield from records
 
@@ -29,10 +30,10 @@ def get_resumption_token(doc: Document) -> str:
     '''
     if token_node := doc.xpath('//resumptionToken').first:
         return token_node.full_text
-    return None
+    return ''
 
 
-def extract_dc_bibl_data(record: TagNode, *fields: list[str]) -> list[str]:
+def extract_dc_bibl_data(record: NodeBase, *fields: str) -> list[str]:
     '''
     extract bibliographic data from the dublin core namespace of an OAI-PMH record element.
 
@@ -48,7 +49,7 @@ def extract_dc_bibl_data(record: TagNode, *fields: list[str]) -> list[str]:
     ['Böschenstein, Johann', 'Gutknecht, Friedrich', '']
 
     '''
-    def matching_nodes(field: str) -> list[TagNode]:
+    def matching_nodes(field: str) -> list[NodeBase]:
         return list(record.iterate_descendants(
             lambda descendant: (
                 isinstance(descendant, TagNode) and descendant.universal_name.endswith(field)
@@ -62,14 +63,14 @@ def extract_dc_bibl_data(record: TagNode, *fields: list[str]) -> list[str]:
 
 def list_records(
     setSpec: str, metadata_prefix: str = 'oai_dc', limit: int = -1
-) -> Iterable[TagNode]:
+) -> Iterable[NodeBase]:
     '''
     retrieve records of a certain set from OAI endpoint, i.e. make requests with the `ListRecords`
     verb.
     '''
     counter = SimpleNamespace(left=limit)
 
-    def yield_records(doc: Document) -> Iterable[TagNode]:
+    def yield_records(doc: Document) -> Iterable[NodeBase]:
         for record in get_records(doc):
             if not counter.left:
                 return
@@ -88,7 +89,7 @@ def list_records(
             return
 
 
-def main(argv: list[str] = sys.argv, limit: int = -1):
+def main(argv: list[str] = sys.argv, limit: int = -1) -> None | list[list[str]]:
     setSpec = argv[-1] if len(argv) > 1 else 'illustrierte.liedflugschriften'
     results = []
     for row in map(
@@ -99,3 +100,4 @@ def main(argv: list[str] = sys.argv, limit: int = -1):
         results += [row]
     if 'unittest' in sys.modules:
         return results
+    return None
