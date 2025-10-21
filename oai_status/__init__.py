@@ -7,7 +7,7 @@ def list_sets(base_url: str = 'https://oai.sbb.berlin/') -> bool:
     a well-formed response with some actual sets in it.
     Boolean return value indicates success.
 
-    >>> list_sets('https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi')
+    >>> list_sets('http://edoc.hu-berlin.de/oai/request')
     True
 
     >>> list_sets('http://foo.bar')
