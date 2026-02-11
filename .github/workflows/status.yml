@@ -15,10 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.0
 
-      - uses: actions/setup-python@v6.0.0
+      - uses: actions/setup-python@v6.2.0
         with:
           python-version-file: pyproject.toml
-      
+          cache: pip
+
       - name: install
         run: pip install --user .
 

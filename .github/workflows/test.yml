@@ -11,9 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.0
 
-      - uses: actions/setup-python@v6.0.0
+      - uses: actions/setup-python@v6.2.0
         with:
           python-version-file: pyproject.toml
+          cache: pip
 
       - name: install dev dependencies
         run: pip install --user .[dev]
@@ -25,4 +26,3 @@ jobs:
         run: python -mflake8
 
 ...
- 
