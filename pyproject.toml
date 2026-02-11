@@ -4,19 +4,19 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'sbb-oai-status'
-version = '0.0.1'
+version = '0.0.2'
 dependencies = [
-  'delb[https-loader]',
+  'delb[https-loader]==0.5.1',
 ]
 requires-python = '>=3.11.0'
 
 
 [project.optional-dependencies]
 dev = [
-  'pytest-cov',
-  'flake8-multiline-containers',
-  'flake8-pyproject',
-  'flake8-simplify',
+  'pytest-cov==7.0.0',
+  'flake8-multiline-containers==0.0.19',
+  'flake8-pyproject==1.2.4',
+  'flake8-simplify==0.30.0; python_version<"3.14"',
 ]
 
 [tool.setuptools]
