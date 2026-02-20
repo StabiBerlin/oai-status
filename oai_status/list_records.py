@@ -2,8 +2,8 @@ import sys
 from types import SimpleNamespace
 from typing import Iterable
 
-from delb import Document
-from _delb.nodes import TagNode, NodeBase
+from delb import Document, TagNode
+from _delb.typing import XMLNodeType
 
 
 def request_list_records(
@@ -17,7 +17,7 @@ def request_list_records(
     return Document(src)
 
 
-def get_records(doc: Document) -> Iterable[NodeBase]:
+def get_records(doc: Document) -> Iterable[XMLNodeType]:
     records = doc.xpath('//ListRecords/record')
     yield from records
 
@@ -33,7 +33,7 @@ def get_resumption_token(doc: Document) -> str:
     return ''
 
 
-def extract_dc_bibl_data(record: NodeBase, *fields: str) -> list[str]:
+def extract_dc_bibl_data(record: XMLNodeType, *fields: str) -> list[str]:
     '''
     extract bibliographic data from the dublin core namespace of an OAI-PMH record element.
 
@@ -49,7 +49,7 @@ def extract_dc_bibl_data(record: NodeBase, *fields: str) -> list[str]:
     ['Böschenstein, Johann', 'Gutknecht, Friedrich', '']
 
     '''
-    def matching_nodes(field: str) -> list[NodeBase]:
+    def matching_nodes(field: str) -> list[XMLNodeType]:
         return list(record.iterate_descendants(
             lambda descendant: (
                 isinstance(descendant, TagNode) and descendant.universal_name.endswith(field)
@@ -63,14 +63,14 @@ def extract_dc_bibl_data(record: NodeBase, *fields: str) -> list[str]:
 
 def list_records(
     setSpec: str, metadata_prefix: str = 'oai_dc', limit: int = -1
-) -> Iterable[NodeBase]:
+) -> Iterable[XMLNodeType]:
     '''
     retrieve records of a certain set from OAI endpoint, i.e. make requests with the `ListRecords`
     verb.
     '''
     counter = SimpleNamespace(left=limit)
 
-    def yield_records(doc: Document) -> Iterable[NodeBase]:
+    def yield_records(doc: Document) -> Iterable[XMLNodeType]:
         for record in get_records(doc):
             if not counter.left:
                 return
